@@ -1,0 +1,28 @@
+{
+    "actorSpecification": 1,
+    "name": "wayback-cdx-markdown",
+    "title": "Wayback CDX \u2192 Markdown for RAG",
+    "description": "Query the Wayback Machine CDX index, fetch selected snapshot HTML, and extract clean Markdown with trafilatura for RAG pipelines. Optional heading-aware chunks. Competitors often stop at CDX URL lists \u2014 this Actor returns page body Markdown.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "minMemoryMbytes": 128,
+    "maxMemoryMbytes": 2048,
+    "defaultRunOptions": {
+        "build": "latest",
+        "memoryMbytes": 256,
+        "timeoutSecs": 3600
+    },
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "storages": {
+        "dataset": "./dataset_schema.json"
+    },
+    "dockerfile": "../Dockerfile",
+    "readme": "../README.md",
+    "changelog": "../CHANGELOG.md",
+    "categories": [
+        "AI",
+        "DEVELOPER_TOOLS",
+        "AUTOMATION"
+    ]
+}

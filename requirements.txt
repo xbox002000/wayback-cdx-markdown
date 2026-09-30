@@ -1,0 +1,5 @@
+apify==4.0.2
+httpx>=0.27
+waybackpack==0.6.4
+trafilatura==2.2.0
+requests>=2.31

@@ -1,0 +1,18 @@
+{
+  "urls": [
+    { "url": "https://example.com/" }
+  ],
+  "fromDate": "202401",
+  "toDate": "202412",
+  "maxSnapshotsPerTarget": 2,
+  "maxItems": 2,
+  "collapse": "timestamp:6",
+  "selection": "latest",
+  "statusCodes": ["200"],
+  "mimeTypes": ["text/html", "html"],
+  "outputFormat": "items_and_chunks",
+  "delaySecs": 0.5,
+  "requestTimeoutSecs": 90,
+  "chunkSize": 400,
+  "chunkOverlap": 40
+}

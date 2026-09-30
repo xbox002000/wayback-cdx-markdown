@@ -1,0 +1,20 @@
+{
+  "urls": [
+    { "url": "https://example.com/" },
+    { "url": "https://www.iana.org/domains/reserved" }
+  ],
+  "domains": ["info.cern.ch"],
+  "fromDate": "2020",
+  "toDate": "2021",
+  "maxSnapshotsPerTarget": 3,
+  "maxItems": 8,
+  "collapse": "timestamp:6",
+  "selection": "latest",
+  "statusCodes": ["200"],
+  "mimeTypes": ["text/html", "html"],
+  "outputFormat": "items_and_chunks",
+  "delaySecs": 0.5,
+  "requestTimeoutSecs": 90,
+  "chunkSize": 500,
+  "chunkOverlap": 50
+}

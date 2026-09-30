@@ -1,0 +1,14 @@
+Third-party software notices
+============================
+
+This Actor bundles / depends on:
+
+- waybackpack (MIT License) — https://github.com/jsvine/waybackpack
+  Copyright (c) Jeremy Singer-Vine and contributors
+
+- trafilatura (Apache License 2.0) — https://github.com/adbar/trafilatura
+  Copyright (c) Adrien Barbaresi and contributors
+
+- Apify SDK for Python (Apache License 2.0) — https://github.com/apify/apify-sdk-python
+
+The Actor source itself is licensed under AGPL-3.0 (see LICENSE).

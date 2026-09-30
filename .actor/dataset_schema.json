@@ -1,0 +1,43 @@
+{
+    "actorSpecification": 1,
+    "fields": {},
+    "views": {
+        "overview": {
+            "title": "Snapshots",
+            "transformation": {
+                "fields": ["title", "originalUrl", "timestamp", "wordCount", "status", "kind", "archiveUrl"]
+            },
+            "display": {
+                "component": "table",
+                "properties": {
+                    "title": { "label": "Title", "format": "text" },
+                    "originalUrl": { "label": "Original URL", "format": "link" },
+                    "timestamp": { "label": "Timestamp", "format": "text" },
+                    "wordCount": { "label": "Words", "format": "number" },
+                    "status": { "label": "Status", "format": "text" },
+                    "kind": { "label": "Kind", "format": "text" },
+                    "archiveUrl": { "label": "Archive URL", "format": "link" }
+                }
+            }
+        },
+        "chunks": {
+            "title": "RAG chunks",
+            "transformation": {
+                "fields": ["title", "originalUrl", "timestamp", "chunkIndex", "chunkCount", "tokenEstimate", "headingPath", "kind"]
+            },
+            "display": {
+                "component": "table",
+                "properties": {
+                    "title": { "label": "Title", "format": "text" },
+                    "originalUrl": { "label": "Original URL", "format": "link" },
+                    "timestamp": { "label": "Timestamp", "format": "text" },
+                    "chunkIndex": { "label": "Chunk #", "format": "number" },
+                    "chunkCount": { "label": "Chunks", "format": "number" },
+                    "tokenEstimate": { "label": "Tokens≈", "format": "number" },
+                    "headingPath": { "label": "Section", "format": "text" },
+                    "kind": { "label": "Kind", "format": "text" }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "apify-actor-start": {
+        "eventTitle": "Actor start",
+        "eventDescription": "Apify synthetic event, charged automatically once per GB of run memory (1 GB minimum). Kept at Apify's default price.",
+        "eventPriceUsd": 5e-05
+    },
+    "snapshot-item": {
+        "eventTitle": "Snapshot Markdown",
+        "eventDescription": "Charged once per successfully extracted Wayback snapshot saved as Markdown. Failed CDX queries and failed fetches are never charged. RAG chunk rows do not add extra events.",
+        "eventPriceUsd": 0.003,
+        "isPrimaryEvent": true
+    }
+}

@@ -1,0 +1,188 @@
+{
+    "title": "Wayback CDX → Markdown input",
+    "description": "Provide page URL(s) and/or domain(s). The Actor queries the Wayback Machine CDX index, selects snapshots, fetches HTML, and extracts Markdown with trafilatura.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "urls": {
+            "title": "Page URLs",
+            "type": "array",
+            "description": "Exact page URLs to look up in the Wayback CDX index (e.g. https://example.com/about). Paste a list or upload a text file.",
+            "editor": "requestListSources",
+            "prefill": [{ "url": "https://example.com/" }],
+            "sectionCaption": "Targets"
+        },
+        "domains": {
+            "title": "Domains (prefix / wildcard)",
+            "type": "array",
+            "description": "Optional. Bare domains or hostnames (e.g. example.com). Queried as `example.com/*` so CDX returns archived paths under that host. Use Max snapshots carefully — large sites have huge CDX result sets.",
+            "editor": "stringList",
+            "sectionCaption": "Targets"
+        },
+        "fromDate": {
+            "title": "From date (Wayback)",
+            "type": "string",
+            "description": "Earliest snapshot timestamp prefix (YYYY, YYYYMM, YYYYMMDD, or full YYYYMMDDhhmmss). Passed to the CDX `from` parameter.",
+            "editor": "textfield",
+            "sectionCaption": "CDX filters"
+        },
+        "toDate": {
+            "title": "To date (Wayback)",
+            "type": "string",
+            "description": "Latest snapshot timestamp prefix (same formats as From date). Passed to the CDX `to` parameter.",
+            "editor": "textfield"
+        },
+        "collapse": {
+            "title": "Collapse",
+            "type": "string",
+            "description": "CDX `collapse` to reduce near-duplicates. `timestamp:8` ≈ one per day, `timestamp:6` ≈ one per month, `digest` = unique content digests, `none` = no collapse (can be huge).",
+            "editor": "select",
+            "enum": ["timestamp:8", "timestamp:6", "digest", "none"],
+            "enumTitles": ["One per day (timestamp:8)", "One per month (timestamp:6)", "Unique digests", "No collapse"],
+            "default": "timestamp:8"
+        },
+        "uniquesOnly": {
+            "title": "Uniques only (dupecount=0)",
+            "type": "boolean",
+            "description": "When the CDX API returns dupecount, keep only rows with dupecount=0 (waybackpack `--uniques-only`).",
+            "default": false
+        },
+        "statusCodes": {
+            "title": "HTTP status codes",
+            "type": "array",
+            "description": "Keep only CDX rows whose statuscode is in this list. Empty = keep all codes.",
+            "editor": "stringList",
+            "default": ["200"],
+            "prefill": ["200"]
+        },
+        "mimeTypes": {
+            "title": "MIME type substrings",
+            "type": "array",
+            "description": "Keep CDX rows whose mimetype contains any of these substrings (case-insensitive). Empty = no MIME filter. Default keeps HTML-ish captures.",
+            "editor": "stringList",
+            "default": ["text/html", "html"],
+            "prefill": ["text/html", "html"]
+        },
+        "selection": {
+            "title": "Snapshot selection",
+            "type": "string",
+            "description": "After filters, which snapshots to fetch: `latest` (newest first), `oldest` (oldest first), or `sample` (evenly spaced across the filtered list).",
+            "editor": "select",
+            "enum": ["latest", "oldest", "sample"],
+            "enumTitles": ["Latest first", "Oldest first", "Even sample"],
+            "default": "latest",
+            "sectionCaption": "Selection & limits"
+        },
+        "maxSnapshotsPerTarget": {
+            "title": "Max snapshots per URL/domain",
+            "type": "integer",
+            "description": "Cap how many snapshots are fetched for each input URL or domain after filters/selection.",
+            "default": 3,
+            "prefill": 2,
+            "minimum": 1,
+            "maximum": 500
+        },
+        "maxItems": {
+            "title": "Max Markdown items",
+            "type": "integer",
+            "description": "Stop after this many successfully extracted snapshot rows (0 = no limit). Also caps cost.",
+            "default": 50,
+            "prefill": 5,
+            "minimum": 0,
+            "maximum": 100000
+        },
+        "fetchRaw": {
+            "title": "Fetch raw archived bytes (id_)",
+            "type": "boolean",
+            "description": "Use Wayback `id_` flag so the Machine returns the original capture without toolbar rewriting (waybackpack `--raw`). Recommended for extraction.",
+            "default": true,
+            "sectionCaption": "Fetch & extract"
+        },
+        "outputFormat": {
+            "title": "Output",
+            "type": "string",
+            "description": "`items`: one dataset row per extracted snapshot. `chunks`: RAG chunk rows + a short per-snapshot summary row. `items_and_chunks`: both full items and chunk rows.",
+            "editor": "select",
+            "enum": ["items", "chunks", "items_and_chunks"],
+            "enumTitles": ["Snapshot Markdown (one row each)", "RAG chunks", "Items + RAG chunks"],
+            "default": "items",
+            "sectionCaption": "Output"
+        },
+        "includeComments": {
+            "title": "Include comment sections",
+            "type": "boolean",
+            "description": "Pass include_comments to trafilatura (default off — usually noise on archived pages).",
+            "default": false
+        },
+        "includeTables": {
+            "title": "Include tables",
+            "type": "boolean",
+            "description": "Pass include_tables to trafilatura.",
+            "default": true
+        },
+        "favorPrecision": {
+            "title": "Favor precision (less boilerplate)",
+            "type": "boolean",
+            "description": "trafilatura favor_precision=True — less noise, possibly less text.",
+            "default": false
+        },
+        "chunkSize": {
+            "title": "Chunk size",
+            "type": "integer",
+            "description": "Maximum chunk size (unit below). Used when Output includes chunks.",
+            "default": 1000,
+            "minimum": 100,
+            "maximum": 20000,
+            "sectionCaption": "RAG chunking"
+        },
+        "chunkOverlap": {
+            "title": "Chunk overlap",
+            "type": "integer",
+            "description": "Trailing context repeated at the start of the next chunk.",
+            "default": 150,
+            "minimum": 0,
+            "maximum": 10000
+        },
+        "chunkUnit": {
+            "title": "Chunk size unit",
+            "type": "string",
+            "description": "`tokens` ≈ 4 characters per token; `characters` is exact.",
+            "editor": "select",
+            "enum": ["tokens", "characters"],
+            "enumTitles": ["Tokens (≈4 chars each)", "Characters"],
+            "default": "tokens"
+        },
+        "requestTimeoutSecs": {
+            "title": "Request timeout (seconds)",
+            "type": "integer",
+            "description": "Timeout for CDX and snapshot HTTP requests.",
+            "default": 60,
+            "minimum": 10,
+            "maximum": 300,
+            "sectionCaption": "Politeness"
+        },
+        "maxRetries": {
+            "title": "Max retries",
+            "type": "integer",
+            "description": "Retries for Wayback CDX / snapshot fetches (waybackpack Session max_retries).",
+            "default": 3,
+            "minimum": 0,
+            "maximum": 8
+        },
+        "delaySecs": {
+            "title": "Delay between snapshot fetches (seconds)",
+            "type": "number",
+            "description": "Polite pause between snapshot body downloads. CDX queries are not delayed.",
+            "default": 0.5,
+            "minimum": 0,
+            "maximum": 30
+        },
+        "userAgent": {
+            "title": "User-Agent",
+            "type": "string",
+            "description": "Optional. Wayback asks tools to identify themselves (include a contact). Default mentions waybackpack + this Actor.",
+            "editor": "textfield"
+        }
+    },
+    "required": []
+}

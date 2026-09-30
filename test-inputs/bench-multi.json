@@ -1,0 +1,20 @@
+{
+  "urls": [
+    { "url": "https://example.com/" },
+    { "url": "https://info.cern.ch/" },
+    { "url": "https://www.w3.org/" },
+    { "url": "https://docs.python.org/3/" },
+    { "url": "https://developer.mozilla.org/en-US/" }
+  ],
+  "fromDate": "202301",
+  "toDate": "202412",
+  "maxSnapshotsPerTarget": 2,
+  "maxItems": 10,
+  "collapse": "timestamp:6",
+  "selection": "sample",
+  "statusCodes": ["200"],
+  "mimeTypes": ["text/html", "html"],
+  "outputFormat": "items",
+  "delaySecs": 0.5,
+  "requestTimeoutSecs": 90
+}

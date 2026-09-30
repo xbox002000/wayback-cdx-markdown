@@ -1,0 +1,14 @@
+{
+  "urls": [
+    { "url": "https://example.com/" },
+    { "url": "https://info.cern.ch/" }
+  ],
+  "fromDate": "202001",
+  "toDate": "202012",
+  "maxSnapshotsPerTarget": 1,
+  "maxItems": 2,
+  "collapse": "timestamp:6",
+  "selection": "latest",
+  "outputFormat": "items",
+  "delaySecs": 1.0
+}

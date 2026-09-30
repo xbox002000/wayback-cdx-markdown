@@ -1,0 +1,25 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Wayback CDX → Markdown output",
+    "description": "Dataset rows are extracted snapshot Markdown (and optional RAG chunks). Key-value store holds CDX_REPORT and OUTPUT run summary.",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Snapshots / chunks",
+            "description": "Default dataset items. Snapshot rows include: kind, status, originalUrl, archiveUrl, timestamp, title, contentMarkdown, contentHash, wordCount, mimeType, statusCode, digest. Chunk rows include chunkIndex, text, headingPath, tokenEstimate. Views: overview, chunks.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items?view=overview"
+        },
+        "cdxReport": {
+            "type": "string",
+            "title": "CDX report",
+            "description": "Key-value store record CDX_REPORT (JSON array): one entry per input URL/domain with cdxHits, selected, fetchedOk, fetchedFailed, error.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/CDX_REPORT"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Run summary",
+            "description": "Key-value store record OUTPUT (JSON): targets, itemsOutput, chunksOutput, cdxHits, fetchErrors, durationSecs.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/OUTPUT"
+        }
+    }
+}
