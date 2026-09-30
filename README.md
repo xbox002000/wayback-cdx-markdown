@@ -103,6 +103,14 @@ Failed CDX queries and failed fetches are never charged. RAG chunk rows do not a
 
 **Do you copy closed Apify Actors?** No. Stack is waybackpack (MIT) + trafilatura (Apache-2.0) + the in-house Apify Python template patterns.
 
+## Related Actors / See also
+
+- [Sitemap URL Extractor — Find PDF & Document Links](https://apify.com/ingenious_quip_bxq/sitemap-url-discovery) — pick live URLs/domains worth archiving, then query CDX for history.
+- [Bulk URL Status Checker — Broken Links & Redirects](https://apify.com/ingenious_quip_bxq/url-status-checker) — when live pages fail, fall back to Wayback Markdown for RAG.
+- [RSS & Atom to Markdown — JSON + RAG Chunks](https://apify.com/ingenious_quip_bxq/rss-atom-to-markdown) — current feed items vs historical snapshots of the same URLs.
+- [PDF & DOCX to Markdown](https://apify.com/ingenious_quip_bxq/pdf-docx-to-markdown) / [Scanned OCR to Markdown](https://apify.com/ingenious_quip_bxq/scanned-ocr-to-markdown) — live documents; this Actor is for **archived HTML** pages.
+- [WHOIS DNS SSL Lookup — Batch Domain Enrichment](https://apify.com/ingenious_quip_bxq/whois-dns-ssl-lookup) — domain age / registrar context next to archive coverage.
+
 ## License & source
 
 Actor source: **AGPL-3.0** (see `LICENSE`). Third-party notices: `NOTICE`.
